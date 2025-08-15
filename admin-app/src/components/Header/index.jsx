@@ -1,4 +1,4 @@
-import { Navbar, Nav, Container, Button } from "react-bootstrap"
+import { Navbar, Nav, Container, Button, Spinner } from "react-bootstrap"
 import { } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, Navigate } from "react-router-dom"
@@ -27,6 +27,9 @@ function Header() {
                 <Button onClick={logout}>SignOut</Button>
             </Nav>
         )
+    }
+    if(auth.loading){
+        return <Spinner>Loadings</Spinner>
     }
 
 

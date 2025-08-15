@@ -8,6 +8,13 @@ const { validateSignupRequest, isRequestValidated, validateSigninRequest } = req
 
 router.post("/admin/signup", validateSignupRequest, isRequestValidated, adminSignup)
 router.post("/admin/signin", validateSigninRequest, isRequestValidated, adminSignin)
+router.post("/admin/signout", requireAdminSignin, (req, res) => {
+    res.clearCookie("token");
+    return res.status(200).json({
+        message: "Signout Successfully"
+    })
+})
+
 router.post("/admin/profile", requireAdminSignin, adminMiddleware, (req, res) => {
     return res.status(200).json({
         message: "Profile"

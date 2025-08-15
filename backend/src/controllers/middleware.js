@@ -1,10 +1,17 @@
 const jwt = require("jsonwebtoken")
 
 exports.requireAdminSignin = (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1];
-    const admin = jwt.verify(token, process.env.JWT_SECRET);
-    req.admin = admin
-    next()
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        const admin = jwt.verify(token, process.env.JWT_SECRET);
+        req.admin = admin
+        next()
+    } catch (error) {
+        return res.status(401).json({
+            message: "Authorization Required"
+        })
+    }
+
 }
 
 exports.adminMiddleware = (req, res, next) => {

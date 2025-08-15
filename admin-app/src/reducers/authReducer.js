@@ -8,7 +8,10 @@ const initState = {
         email: "",
     },
     authenticating: false,
-    authenticate: false
+    authenticate: false,
+    loading: false,
+    error: null,
+    message: ""
 }
 
 export default (state = initState, action) => {
@@ -35,7 +38,18 @@ export default (state = initState, action) => {
             }
         case authConstant.LOGOUT_REQUEST:
             return {
-                initState
+                ...state,
+                loading: true
+            }
+        case authConstant.LOGOUT_SUCCESS:
+            return {
+                ...initState,
+            }
+        case authConstant.LOGOUT_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.error
             }
         default:
             return state

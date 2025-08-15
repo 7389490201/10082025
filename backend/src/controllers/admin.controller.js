@@ -46,6 +46,7 @@ exports.adminSignin = (req, res) => {
                 if (admin.authenticate(req.body.password) && admin.role === "admin") {
                     const token = jwt.sign({ _id: admin._id, role: admin.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
                     const { firstName, lastName, email, username, fullName, role } = admin;
+                    res.cookie("token", token, { expiresIn: "1h" });
                     return res.status(200).json({
                         token,
                         message: "Signin Successfully",

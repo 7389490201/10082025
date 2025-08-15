@@ -6,6 +6,8 @@ import PrivateRoute from './components/Hoc/PrivateRoute'
 import { useDispatch, useSelector } from 'react-redux'
 import { isUserLoggedin } from "./actions"
 import { useEffect } from "react"
+import Products from "./containers/Products"
+import Orders from "./containers/Orders"
 
 
 
@@ -23,6 +25,8 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path='/products' element={<PrivateRoute><Products /></PrivateRoute>} />
+        <Route path='/orders' element={<PrivateRoute><Orders /></PrivateRoute>} />
         <Route path='/signin' element={<Signin />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
