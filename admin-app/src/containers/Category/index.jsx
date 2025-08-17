@@ -13,9 +13,11 @@ function Category() {
     const [categoryName, setCategoryName] = useState("");
     const [categoryParentId, setCategoryParentId] = useState("");
     const [categoryImage, setCategoryImage] = useState("");
-
+    const dispatch = useDispatch();
     const handleClose = () => {
         const form = new FormData();
+
+
 
         form.append("name", categoryName);
         form.append("parentId", categoryParentId),
@@ -40,10 +42,10 @@ function Category() {
     const handleShow = () => setShow(true);
     const category = useSelector(state => state.category);
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllCategory())
-    }, [])
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     dispatch(getAllCategory())
+    // }, [])
 
     const renderCategories = (categories) => {
         let myCategories = [];
