@@ -20,7 +20,13 @@ function Category() {
         form.append("name", categoryName);
         form.append("parentId", categoryParentId),
             form.append("categoryImage", categoryImage)
-        dispatch(addCategory(form))
+        dispatch(addCategory(form)).then(() => {
+            dispatch(getAllCategory()); // Refresh category list
+            setShow(false); // Close modal after successful submit
+            setCategoryName("");
+            setCategoryParentId("");
+            setCategoryImage("")
+        });
 
         // const cat = {
         //     categoryName,
@@ -28,7 +34,8 @@ function Category() {
         //     categoryImage
         // }
         // console.log(cat);
-        setShow(false)
+
+
     };
     const handleShow = () => setShow(true);
     const category = useSelector(state => state.category);
@@ -56,7 +63,7 @@ function Category() {
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
             options.push({ value: category._id, name: category.name });
-            if (category.children.length > 0) {
+            if (category.children && category.children.length > 0) {
                 createCategoryList(category.children, options)
             }
         }
@@ -103,7 +110,7 @@ function Category() {
                         <select className="form-control mb-3"
                             value={categoryParentId}
                             onChange={(e) => { setCategoryParentId(e.target.value) }}>
-                            <option >select category</option>
+                            <option value="" >select category</option>
                             {
                                 createCategoryList(category.categories).map(option =>
                                     <option key={option.value} value={option.value}>{option.name}</option>

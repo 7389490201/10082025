@@ -2,6 +2,7 @@ import React from 'react'
 import Header from "../Header/index"
 import { Container, Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import "./style.css"
 
 function Layout(props) {
     return (
