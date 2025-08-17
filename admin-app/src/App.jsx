@@ -8,6 +8,7 @@ import { isUserLoggedin } from "./actions"
 import { useEffect } from "react"
 import Products from "./containers/Products"
 import Orders from "./containers/Orders"
+import Category from "./containers/Category"
 
 
 
@@ -25,6 +26,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path='/category' element={<PrivateRoute><Category /></PrivateRoute>} />
         <Route path='/products' element={<PrivateRoute><Products /></PrivateRoute>} />
         <Route path='/orders' element={<PrivateRoute><Orders /></PrivateRoute>} />
         <Route path='/signin' element={<Signin />} />

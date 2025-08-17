@@ -8,7 +8,7 @@ const { validateSignupRequest, isRequestValidated, validateSigninRequest } = req
 
 router.post("/admin/signup", validateSignupRequest, isRequestValidated, adminSignup)
 router.post("/admin/signin", validateSigninRequest, isRequestValidated, adminSignin)
-router.post("/admin/signout", requireAdminSignin, (req, res) => {
+router.post("/admin/signout", (req, res) => {
     res.clearCookie("token");
     return res.status(200).json({
         message: "Signout Successfully"

@@ -8,7 +8,7 @@ const intiState = {
 
 
 export default (state = intiState, action) => {
-    console.log(action)
+
     switch (action.type) {
         case userConstant.USER_REGISTER_REQUEST:
             return {

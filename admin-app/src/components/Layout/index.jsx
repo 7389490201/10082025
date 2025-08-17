@@ -14,6 +14,7 @@ function Layout(props) {
                             <Col md={2} className='sidebar'>
                                 <ul>
                                     <li> <Link to={"/"}>Home</Link></li>
+                                    <li> <Link to={"/category"}>Category</Link></li>
                                     <li> <Link to={"/products"}>products</Link></li>
                                     <li> <Link to={"/orders"}>orders</Link></li>
 
