@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Col, Container, Row, Button, Modal } from "react-bootstrap"
+import { Col, Container, Row, Button, Modal, Table } from "react-bootstrap"
 import Input from "../../components/UI";
 import Layout from '../../components/Layout'
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct } from '../../actions/products.actions';
+import { createProduct, getInitialData } from '../../actions/products.actions';
+import { useEffect } from 'react';
 
 function Products(props) {
 
@@ -14,9 +15,18 @@ function Products(props) {
     const [categoryId, setCategoryId] = useState("")
     const [productPictures, setProductPicture] = useState([])
     const category = useSelector(state => state.category);
+    const productState = useSelector(state => state.product);
     const [show, setShow] = useState(false);
     const handleShow = () => setShow(true);
     const dispatch = useDispatch();
+    const [productDetailModal, setProductDetailModal] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+
+
+    useEffect(() => {
+        dispatch(getInitialData())
+    }, [dispatch])
 
     const handleClose = () => {
         const form = new FormData()
@@ -54,6 +64,45 @@ function Products(props) {
             setProductPicture(prev => [...prev, e.target.files[0]]);
         }
     };
+    const showProductDetailsModal = (product) => {
+        setSelectedProduct(product);
+        setProductDetailModal(true);
+    };
+    const renderInitialData = () => {
+        const products = productState.product; // यहीं mistake थी
+
+        if (!Array.isArray(products) || products.length === 0) {
+            return <p>No product found</p>;
+        }
+
+        return (
+            <Table responsive="sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {products.map((prod, index) => (
+                        <tr key={prod._id} onClick={() => showProductDetailsModal(prod)} style={{ cursor: "pointer" }}>
+                            <td>{index + 1}</td>
+                            <td>{prod.name}</td>
+                            <td>{prod.price}</td>
+                            <td>{prod.quantity}</td>
+                            <td>{prod.description}</td>
+                            <td>{prod.category?.name || "N/A"}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+        );
+    }
+
 
 
     return (
@@ -72,7 +121,7 @@ function Products(props) {
                     </Row>
                     <Row>
                         <Col md={12}>
-
+                            {renderInitialData()}
                         </Col>
                     </Row>
                 </Container>
@@ -142,7 +191,65 @@ function Products(props) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </Layout>
+                <Modal show={productDetailModal} onHide={() => setProductDetailModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Product Details</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {selectedProduct && (
+                            <>
+                                <Row>
+                                    <Col md={6}>
+                                        <span><strong>Name:</strong> {selectedProduct.name}</span>
+
+                                    </Col>
+                                    <Col md={6}>
+
+                                        <span><strong>Price:</strong> {selectedProduct.price}</span>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <p><strong>Quantity:</strong> {selectedProduct.quantity}</p>
+                                    </Col>
+                                    <Col>
+                                        <p><strong>Category:</strong> {selectedProduct.category?.name || "N/A"}</p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col>
+                                        <p><strong>Description:</strong> {selectedProduct.description}</p>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col md={12}>
+                                        <p><strong>Pictures:</strong></p>
+                                    </Col>
+                                    <Col style={{ display: 'flex', alignItems: 'center' }}>
+                                        {selectedProduct.productPictures?.map(pic => (
+                                            <img
+                                                key={pic._id}
+                                                src={`http://localhost:2000/public/${pic.img}`}
+                                                alt="product"
+                                                style={{ width: '100px', margin: '10px' }}
+                                            />
+                                        ))}
+                                    </Col>
+                                </Row>
+
+
+
+                            </>
+                        )}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setProductDetailModal(false)}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+            </Layout >
         </>
     )
 }

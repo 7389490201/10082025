@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/product.model");
+const Category = require('../models/category.model');
 const multer = require("multer");
 const path = require("path");
 const shortid = require("shortid");
@@ -45,6 +46,15 @@ router.post("/product/create", requireAdminSignin, adminMiddleware, upload.array
             return res.status(400).json({ error: error.message })
         })
 
+})
+
+router.post("/initialdata", async (req, res) => {
+    try {
+        const product = await Product.find({}).populate("category", "_id name");
+        res.status(200).json({ product });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 })
 
 module.exports = router;

@@ -20,3 +20,24 @@ export const createProduct = (form) => {
         }
     }
 }
+
+export const getInitialData = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: productConstant.GET_INITIAL_DATA_REQUEST
+        })
+
+        const res = await axios.post("/initialdata")
+        if (res.status === 200) {
+            dispatch({
+                type: productConstant.GET_INITIAL_DATA_SUCCESS,
+                payload: { product: res.data.product }
+            })
+        } else {
+            dispatch({
+                type: productConstant.GET_INITIAL_DATA_FAILURE,
+                payload: { error: res.data.error }
+            })
+        }
+    }
+}

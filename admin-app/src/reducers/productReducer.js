@@ -26,6 +26,23 @@ export default (state = intiState, action) => {
                 loading: false,
                 error: action.payload.error
             }
+        case productConstant.GET_INITIAL_DATA_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case productConstant.GET_INITIAL_DATA_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                product: action.payload.product
+            }
+        case productConstant.GET_INITIAL_DATA_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
         default:
             return state
     }
