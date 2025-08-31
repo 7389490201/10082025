@@ -1,4 +1,4 @@
-import axios from "../components/Helper/axios"
+import axios from "../Helper/axios"
 import { categoryConstant } from "./constants"
 
 export const getAllCategory = () => {

@@ -3,7 +3,7 @@ import "./style.css"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllCategory } from '../../../../admin-app/src/actions';
 
-function MenuHeder() {
+function MenuHeader() {
     const category = useSelector(state => state.category)
     const dispatch = useDispatch();
     useEffect(() => {
@@ -15,10 +15,10 @@ function MenuHeder() {
             myCategories.push(
                 <li key={category._id}>
                     {
-                        category.parentId ? <a href={category.slug}>{category.name}</a>:
-                        <span>{category.name}</span>
+                        category.parentId ? <a href={category.slug}>{category.name}</a> :
+                            <span>{category.name}</span>
                     }
-                    
+
                     {category.children && category.children.length > 0 ? (
                         <ul>{renderCategories(category.children)}</ul>
                     ) : null}
@@ -36,4 +36,4 @@ function MenuHeder() {
     )
 }
 
-export default MenuHeder
+export default MenuHeader

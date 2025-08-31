@@ -1,10 +1,12 @@
 import React from 'react'
-import Header from '../../component/Header'
+import Layout from '../../component/Layout'
 
 function HomePage() {
     return (
         <>
-            <Header />
+            <Layout>
+                <div>Home Page Content</div>
+            </Layout>
         </>
     )
 }

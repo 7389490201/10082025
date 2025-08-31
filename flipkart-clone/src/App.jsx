@@ -1,12 +1,14 @@
-import React from 'react'
 import HomePage from './container/HomePage'
-import MenuHeder from './component/MenuHeader'
+import ProductPage from './container/ProductPage'
+import { Routes, Route } from "react-router-dom"
 
-function App() {
+function App(props) {
   return (
     <>
-      <HomePage />
-      <MenuHeder />
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/:slug' element={<ProductPage />} />
+      </Routes>
     </>
   )
 }
