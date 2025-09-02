@@ -57,4 +57,34 @@ router.post("/initialdata", async (req, res) => {
     }
 })
 
+router.get("/products/:slug", async (req, res) => {
+    const { slug } = req.params;
+    const lowerSlug = slug.toLowerCase();
+    try {
+        const category = await Category.findOne({ slug: lowerSlug })
+        if (category) {
+            const product = await Product.find({ category: category._id })
+            res.status(200).json({
+                product,
+                productByPrice: {
+                    under5k: product.filter(item => item.price <= 5000),
+                    under10k: product.filter(item => item.price > 5000 && item.price <= 10000),
+                    under15k: product.filter(item => item.price > 10000 && item.price <= 15000),
+                    under20k: product.filter(item => item.price > 15000 && item.price <= 20000),
+                    under30k: product.filter(item => item.price > 20000 && item.price <= 30000),
+                }
+            })
+        } else {
+            return res.status(400).json({
+                message: "Product Not Found"
+            })
+        }
+    } catch (error) {
+        return res.status(500).json({
+            error: "Internal Server Error" + error.message
+        })
+    }
+
+})
+
 module.exports = router;

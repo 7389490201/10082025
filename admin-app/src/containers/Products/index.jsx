@@ -40,13 +40,13 @@ function Products(props) {
             form.append("productPictures", pic)
         }
 
-        dispatch(createProduct(form))
-        // setName("");
-        // setPrice("");
-        // setQuantity("");
-        // setDiscription("");
-        // setCategoryId("");
-        // setProductPicture([]);
+        dispatch(createProduct(form)).then(dispatch(getInitialData()))
+        setName("");
+        setPrice("");
+        setQuantity("");
+        setDiscription("");
+        setCategoryId("");
+        setProductPicture([]);
 
         setShow(false);
     }
