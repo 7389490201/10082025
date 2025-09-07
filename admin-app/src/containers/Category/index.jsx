@@ -2,7 +2,7 @@ import { Col, Container, Row, Button, Modal } from "react-bootstrap"
 import Layout from "../../components/Layout"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { addCategory, getAllCategory } from "../../actions";
+import { addCategory, getAllCategory, updateCategories } from "../../actions";
 import Input from "../../components/UI";
 import CheckboxTree from "react-checkbox-tree"
 import { IoCheckbox } from "react-icons/io5";
@@ -24,12 +24,10 @@ function Category() {
     const [expandedArray, setExpandedArray] = useState([]);
     const [updateCategoryModal, setUpdateCategoryModal] = useState(false);
     const dispatch = useDispatch();
+
+
     const handleClose = () => {
-
         const form = new FormData();
-
-
-
         form.append("name", categoryName);
         form.append("parentId", categoryParentId),
             form.append("categoryImage", categoryImage)
@@ -117,6 +115,37 @@ function Category() {
             setExpandedArray(updatedExpandedArray);
         }
     };
+
+    const updateCategoryForm = () => {
+        const form = new FormData();
+        const updatedCategories = [];
+
+        expandedArray.forEach(item => {
+            updatedCategories.push({
+                _id: item.value,
+                name: item.name,
+                parentId: item.parentId || "",
+                type: item.type || ""
+            });
+        });
+
+        checkedArray.forEach(item => {
+            updatedCategories.push({
+                _id: item.value,
+                name: item.name,
+                parentId: item.parentId || "",
+                type: item.type || ""
+            });
+        });
+
+        form.append("categories", JSON.stringify(updatedCategories));
+
+        dispatch(updateCategories(form)).then(() => {
+            dispatch(getAllCategory());
+        });
+        setUpdateCategoryModal(false);
+    }
+
     return (
         <>
             <Layout sidebar>
@@ -238,9 +267,9 @@ function Category() {
                                         <select name="" id=""
                                             className="form-control">
                                             <option value="">Select type</option>
-                                            <option value="">Store</option>
-                                            <option value="">Product</option>
-                                            <option value="">Page</option>
+                                            <option value="Store">Store</option>
+                                            <option value="Product">Product</option>
+                                            <option value="Page">Page</option>
                                         </select>
                                     </Col>
                                 </Row>
@@ -292,7 +321,7 @@ function Category() {
                         <Button variant="secondary" onClick={() => setUpdateCategoryModal(false)}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={handleClose}>
+                        <Button variant="primary" onClick={() => updateCategoryForm()}>
                             Save Changes
                         </Button>
                     </Modal.Footer>

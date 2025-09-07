@@ -71,4 +71,47 @@ router.get("/category/get", async (req, res) => {
     }
 });
 
+router.post("/category/update", upload.array("categoryImage"), async (req, res) => {
+    try {
+
+        const categories = JSON.parse(req.body.categories);
+
+
+        // Process each category
+        for (let i = 0; i < categories.length; i++) {
+            const category = categories[i];
+            const { _id, name, parentId, type } = category;
+
+            console.log(category);
+            // Find the category by ID
+            const existingCategory = await Category.findById(_id);
+            if (!existingCategory) {
+                return res.status(404).json({ message: "Category not found" });
+            }
+
+            // Update category fields
+            existingCategory.name = name;
+            if (!parentId) {
+                existingCategory.parentId = null;
+            }
+            if (!type) {
+                existingCategory.type = null;
+            }
+            existingCategory.parentId = parentId;
+            existingCategory.type = type;
+
+            // Handle category image upload
+            if (req.files && req.files[i]) {
+                existingCategory.categoryImage = process.env.API + "/public/" + req.files[i].filename;
+            }
+
+            await existingCategory.save();
+        }
+
+        res.status(200).json({ message: "Categories updated successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error updating categories", error: error.message });
+    }
+});
+
 module.exports = router;
