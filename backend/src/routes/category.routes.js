@@ -114,4 +114,14 @@ router.post("/category/update", upload.array("categoryImage"), async (req, res) 
     }
 });
 
+router.post("/category/delete", async (req, res) => {
+    const { ids } = req.body.payload;
+    try {
+        await Category.deleteMany({ _id: { $in: ids } });
+        res.status(200).json({ message: "Categories deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting categories", error: error.message });
+    }
+})
+
 module.exports = router;

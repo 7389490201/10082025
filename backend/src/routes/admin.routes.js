@@ -7,7 +7,7 @@ const { requireAdminSignin, adminMiddleware } = require("../controllers/middlewa
 const { validateSignupRequest, isRequestValidated, validateSigninRequest } = require("../validators/auth");
 
 router.post("/admin/signup", validateSignupRequest, isRequestValidated, adminSignup)
-router.post("/admin/signin", validateSigninRequest, isRequestValidated, adminSignin)
+router.post("/admin/signin", validateSigninRequest, isRequestValidated, `adminSignin`)
 router.post("/admin/signout", (req, res) => {
     res.clearCookie("token");
     return res.status(200).json({
