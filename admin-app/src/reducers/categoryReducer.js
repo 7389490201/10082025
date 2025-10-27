@@ -1,4 +1,4 @@
-import { categoryConstant } from "../actions/constants"
+import { authConstant, categoryConstant } from "../actions/constants"
 
 const initState = {
     categories: [],
@@ -33,11 +33,25 @@ const initState = {
 export default (state = initState, action) => {
     console.log(action)
     switch (action.type) {
+        case categoryConstant.GET_ALL_CATEGORIES_REQUEST: {
+            return {
+                ...state,
+                loading: true,
+            }
+        }
         case categoryConstant.GET_ALL_CATEGORIES_SUCCESS:
             return {
                 ...state,
-                categories: action.payload.categories
+                categories: action.payload.categories,
+                loading: false
             }
+        case categoryConstant.GET_ALL_CATEGORIES_FAILURE:
+            return {
+                ...state,
+                error: action.payload.error,
+                loading: false
+            }
+
         case categoryConstant.ADD_NEW_CATEGORY_REQUEST:
             return {
                 ...state,
@@ -48,6 +62,29 @@ export default (state = initState, action) => {
                 ...state,
                 loading: false,
                 // categories: action.payload.category,
+            }
+        case categoryConstant.ADD_NEW_CATEGORY_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.error
+            }
+        case categoryConstant.DELETE_CATEGORIES_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case categoryConstant.DELETE_CATEGORIES_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                // categories: action.payload.categories
+            }
+        case categoryConstant.DELETE_CATEGORIES_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload.error
             }
         default:
             return state

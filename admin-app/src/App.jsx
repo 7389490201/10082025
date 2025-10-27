@@ -9,6 +9,9 @@ import { useEffect } from "react"
 import Products from "./containers/Products"
 import Orders from "./containers/Orders"
 import Category from "./containers/Category"
+import { Spinner } from "react-bootstrap"
+import "./index.css"
+
 
 
 
@@ -16,13 +19,23 @@ import Category from "./containers/Category"
 function App() {
   const dispatch = useDispatch()
   const auth = useSelector(state => state.auth)
+  const category = useSelector(state => state.category)
+  console.log(category)
 
   useEffect(() => {
     if (!auth.authenticate) {
       dispatch(isUserLoggedin())
       dispatch(getAllCategory())
     }
+
   }, [])
+  if (category.loading == true) {
+    return (
+      <div className="d-flex text-center align-items-center justify-content-center mt-5">
+        <Spinner animation="border" variant="secondary" />
+      </div>
+    );
+  }
   return (
     <>
       <Routes>

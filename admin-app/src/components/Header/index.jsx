@@ -23,12 +23,12 @@ function Header() {
     }
     const renderLoggedInLinks = () => {
         return (
-            <Nav className="ms-auto">
+            <Nav className="ms-auto signoutButton">
                 <Button onClick={logout}>SignOut</Button>
             </Nav>
         )
     }
-    if(auth.loading){
+    if (auth.loading) {
         return <Spinner>Loadings</Spinner>
     }
 

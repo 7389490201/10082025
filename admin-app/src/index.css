@@ -1,10 +1,10 @@
-:root {
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-}
+} */
 
-a {
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
@@ -12,4 +12,42 @@ a {
 
 a:hover {
   color: #535bf2;
+} */
+
+.signoutButton button {
+  background: #fff;
+  color: black;
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+}
+
+.signoutButton button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: black;
+  transition: 1s;
+}
+
+
+.categoryNav button {
+  background: #fff;
+  color: black;
+  border: transparent;
+  border-radius: 20px 20px;
+  padding: 10px 20px;
+  margin: 5px;
+}
+
+.categoryNav button:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: black;
+  transition: 0.5s;
+}
+
+.categoryNav button svg {
+  font-size: 20px;
+  /* justify-content: center; */
+  display: flex;
+  align-items: center;
 }

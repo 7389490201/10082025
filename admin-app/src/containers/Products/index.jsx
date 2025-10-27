@@ -111,7 +111,7 @@ function Products(props) {
                 <Container>
                     <Row>
                         <Col md={12}>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between" }} className='categoryNav'>
                                 <h3>Product</h3>
                                 <Button variant="primary" onClick={handleShow}>
                                     Add
