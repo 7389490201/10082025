@@ -89,13 +89,18 @@ function UpdateCategory(props) {
                                         }
                                     </select>
                                 </Col>
-                                <Col>
-                                    <select name="" id=""
-                                        className="form-control">
-                                        <option value="">Select type</option>
-                                        <option value="">Store</option>
-                                        <option value="">Product</option>
-                                        <option value="">Page</option>
+                                   <Col>
+                                    <select
+                                    className="form-control"
+                                    value={item.type}
+                                    onChange={(e) =>
+                                        handleCategoryInput("type", e.target.value, index, "checked")
+                                    }
+                                    >
+                                    <option value="">Select type</option>
+                                    <option value="store">Store</option>
+                                    <option value="product">Product</option>
+                                    <option value="page">Page</option>
                                     </select>
                                 </Col>
                             </Row>

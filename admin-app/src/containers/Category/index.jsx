@@ -36,7 +36,8 @@ function Category() {
         const form = new FormData();
         form.append("name", categoryName);
         form.append("parentId", categoryParentId),
-            form.append("categoryImage", categoryImage)
+            form.append("categoryImage", categoryImage),
+            form.append("type",type)
         dispatch(addCategory(form)).then(() => {
             dispatch(getAllCategory()); // Refresh category list
             setShow(false); // Close modal after successful submit
@@ -84,7 +85,11 @@ function Category() {
 
     const createCategoryList = (categories, options = []) => {
         for (let category of categories) {
-            options.push({ value: category._id, name: category.name, parentId: category.parentId });
+            options.push({ value: category._id, 
+                name: category.name, 
+                parentId: category.parentId,
+                type:category.type,
+             });
             if (category.children && category.children.length > 0) {
                 createCategoryList(category.children, options)
             }

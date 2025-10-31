@@ -9,6 +9,7 @@ import { useEffect } from "react"
 import Products from "./containers/Products"
 import Orders from "./containers/Orders"
 import Category from "./containers/Category"
+import NewPage from "./containers/NewPage"
 import { Spinner } from "react-bootstrap"
 import "./index.css"
 
@@ -31,8 +32,8 @@ function App() {
   }, [])
   if (category.loading == true) {
     return (
-      <div class="spinner-container">
-  <div class="spinner"></div>
+      <div className="spinner-container">
+  <div className="spinner"></div>
 </div>
     );
   }
@@ -40,6 +41,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path='/page' element={<PrivateRoute><NewPage/></PrivateRoute>}/>
         <Route path='/category' element={<PrivateRoute><Category /></PrivateRoute>} />
         <Route path='/products' element={<PrivateRoute><Products /></PrivateRoute>} />
         <Route path='/orders' element={<PrivateRoute><Orders /></PrivateRoute>} />

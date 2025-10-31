@@ -55,6 +55,7 @@ function createCategoryTree(categories, parentId = null) {
             name: cat.name,
             slug: cat.slug,
             parentId: cat.parentId,
+            type:cat.type,
             children: createCategoryTree(categories, cat._id.toString())
         });
     }
