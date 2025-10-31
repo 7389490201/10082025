@@ -11,7 +11,6 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import UpdateCategory from "./components/UpdateCategory";
 import AddNewCategory from "./components/AddNewCategory";
 import DeleteCategory from "./components/DeleteCategory";
-import "./style.css"
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";

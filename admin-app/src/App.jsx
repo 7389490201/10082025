@@ -31,9 +31,9 @@ function App() {
   }, [])
   if (category.loading == true) {
     return (
-      <div className="d-flex text-center align-items-center justify-content-center mt-5">
-        <Spinner animation="border" variant="secondary" />
-      </div>
+      <div class="spinner-container">
+  <div class="spinner"></div>
+</div>
     );
   }
   return (

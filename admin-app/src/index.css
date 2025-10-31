@@ -51,3 +51,40 @@ a:hover {
   display: flex;
   align-items: center;
 }
+
+.spinner-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.8); /* halka background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Spinner Design */
+.spinner {
+  --d: 24.6px;
+  width: 6px; /* thoda bada */
+  height: 6px;
+  border-radius: 50%;
+  color: #080909; /* blue color */
+  box-shadow:
+    calc(1*var(--d)) calc(0*var(--d)) 0 0,
+    calc(0.707*var(--d)) calc(0.707*var(--d)) 0 1.1px,
+    calc(0*var(--d)) calc(1*var(--d)) 0 2.2px,
+    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3.4px,
+    calc(-1*var(--d)) calc(0*var(--d)) 0 4.5px,
+    calc(-0.707*var(--d)) calc(-0.707*var(--d)) 0 5.6px,
+    calc(0*var(--d)) calc(-1*var(--d)) 0 6.7px;
+  animation: spinner-a90wxe 1s infinite steps(8);
+}
+
+@keyframes spinner-a90wxe {
+  100% {
+    transform: rotate(1turn);
+  }
+}
