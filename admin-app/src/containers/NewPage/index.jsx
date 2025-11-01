@@ -13,6 +13,9 @@ const NewPage = () =>{
     const [categories,setCategories]=useState([]);
     const [categoryId,setCategoryId]=useState("");
     const [desc,setDesc]=useState("");
+    const [type,setType]=useState("");
+    const [banners,setBanner]=useState([]);
+    const [products,setProduct]=useState([]);
 
 
     useEffect(()=>{
@@ -26,9 +29,23 @@ setCreateModal(false)
 
 const handleBannerImages = (e) =>{
     console.log(e)
+    setBanner([...banners, e.target.files[0]])
 }
 const handleProductImages = (e) =>{
     console.log(e)
+    setProduct([products,e.target.files[0]])
+}
+
+const submitPageForm = (e) =>{
+    e.preventDefault();
+    const form = new FormData();
+    form.append("title")
+    form.append("description")
+    form.append("banners")
+    form.append("products")
+    form.append("category")
+    form.append("titile")
+    form.append("titile")
 }
 
 
@@ -77,6 +94,15 @@ const renderCreatePageModal = () =>{
                     </Col>
                 </Row>
                 <Row className="mt-3">
+                {
+                    banners.length>0?
+                    banners.map((banner,index)=>
+                     <Row>
+                        <Col>
+                        {banner.name}
+                        </Col>
+                    </Row>):null  
+                }
                     <Col>
                     <Input
                        type="file"
@@ -86,6 +112,15 @@ const renderCreatePageModal = () =>{
                     </Col>
                 </Row>
                 <Row className="mt-3">
+                     {
+                    products.length>0?
+                    products.map((product,index)=>
+                     <Row>
+                        <Col>
+                        {product.name}
+                        </Col>
+                    </Row>):null  
+                }
                     <Col>
                     <Input
                        type="file"
